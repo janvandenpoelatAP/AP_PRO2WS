@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OefeningInterfaces", "OefeningInterfaces\OefeningInterfaces.csproj", "{C56831EC-51CC-40A6-9764-8B95CE0143AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{1622FD65-E528-4EEE-B5F8-6E4B2D4AF032}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C56831EC-51CC-40A6-9764-8B95CE0143AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56831EC-51CC-40A6-9764-8B95CE0143AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56831EC-51CC-40A6-9764-8B95CE0143AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56831EC-51CC-40A6-9764-8B95CE0143AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1622FD65-E528-4EEE-B5F8-6E4B2D4AF032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1622FD65-E528-4EEE-B5F8-6E4B2D4AF032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1622FD65-E528-4EEE-B5F8-6E4B2D4AF032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1622FD65-E528-4EEE-B5F8-6E4B2D4AF032}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAFB21A4-BAD3-4D45-8A6B-24C9D3A752C1}
+	EndGlobalSection
+EndGlobal
