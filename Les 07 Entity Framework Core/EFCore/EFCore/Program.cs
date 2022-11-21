@@ -4,9 +4,19 @@ namespace EFSamurai;
 
 public class Program
 {
+    public struct IdAndName
+    {
+        public int Id;
+        public string Name;
+        public IdAndName(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
     public static void Main(string[] args)
     {
-        InsertSaurai();
+        InsertSamurai();
         SimpleSamuraiQuery();
         Filtering();
         RetrieveAndUpdateSamurai();
@@ -14,7 +24,24 @@ public class Program
         Delete();
         InsertNewPkFkGraph();
         AddChildToExistingObjectWhileTracked();
-        AddChildToExistingObjectNotTracked(4);
+        //AddChildToExistingObjectNotTracked(8);
+        EagerLoadingWithQoutes();
+        ProjectSomeProperties();
+    }
+    private static void ProjectSomeProperties()
+    {
+        using (var context = new SamuraiContext())
+        {
+            var samuraiWithQuotes = context.Samurais.Select(s => new { s.Id, s.Name, s.Quotes }).ToList();
+            var idAndNames = context.Samurais.Select(s => new IdAndName(s.Id, s.Name)).ToList();
+        }
+    }
+    private static void EagerLoadingWithQoutes()
+    {
+        using (var context = new SamuraiContext())
+        {
+            var samuraiWithQuotes = context.Samurais.Include(s => s.Quotes).ToList();
+        }
     }
     private static void AddChildToExistingObjectNotTracked(int samuraiId)
     {
@@ -119,7 +146,7 @@ public class Program
             }
         }
     }
-    private static void InsertSaurai()
+    private static void InsertSamurai()
     {
         var samurai = new Samurai() { Name = "Dimitri" };
         using (var context = new SamuraiContext())
