@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using AutoMapper.Configuration;
 using OefeningBlogEF.Entities;
 using OefeningBlogEF.Services;
 
@@ -6,12 +7,18 @@ namespace OefeningBlogEF;
 
 public class Startup
 {
+    private IConfiguration configuration;
+    public Startup(IConfiguration configuration)
+    {
+        this.configuration = configuration;
+    }
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<PostRepository, PostRepository>();
+        services.AddAutoMapper(typeof(Startup));
+        services.AddScoped<IPostRepository, PostRepository>();
         services.AddControllers();
         services.AddSwaggerGen();
-        var connection = "server = localhost; database = blog-db; user=root; password = abc123";
+        var connection = configuration.GetConnectionString("BloggingDatabase");
         services.AddDbContext<BlogContext>(x => x.UseMySql(connection, ServerVersion.AutoDetect(connection)));
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

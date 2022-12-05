@@ -1,49 +1,55 @@
-﻿using OefeningBlogEF.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OefeningBlogEF.Entities;
+using OefeningBlogEF.ViewModels;
 
-namespace OefeningBlogEF.Services
+namespace OefeningBlogEF.Services;
+
+public class PostRepository : IPostRepository
 {
-    public class PostRepository
+    private BlogContext context;
+
+    public PostRepository(BlogContext context)
     {
-        private BlogContext context;
+        this.context = context;
+    }
 
-        public PostRepository(BlogContext context)
+    public IEnumerable<Entities.Category> GetCategories()
+    {
+        return context.Categories.ToList();
+    }
+    public List<PostCategory> GetPosts(int categoryId)
+    {
+        return context.Posts.Where(x => x.CategoryId == categoryId).Select(p =>
+                new PostCategory
+                {
+                    PostId = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    CategoryName = p.Category.Name,
+                    CreatedDate = p.CreatedDate
+                }).ToList();
+    }
+    public PostCategory GetPost(int postId)
+    {
+        return context.Posts.Where(x => x.Id == postId).Select(p =>
+        new PostCategory
         {
-            this.context = context;
-        }
-
-        public IEnumerable<Category> GetCategories()
-        {
-            return context.Categories;
-        }
-        public void Add(Restaurant restaurant)
-        {
-            context.Restaurants.Add(restaurant);
-            context.SaveChanges();
-        }
-        /*
-                    public Restaurant Get(int id)
-                    {
-                        return context.Restaurants.FirstOrDefault(x => x.Id == id);
-                    }
-                    public void Add(Restaurant restaurant)
-                    {
-                        context.Restaurants.Add(restaurant);
-                        context.SaveChanges();
-                    }
-                    public void Delete(Restaurant restaurant)
-                    {
-                        var toDelete = Get(restaurant.Id);
-                        context.Restaurants.Remove(toDelete);
-                        context.SaveChanges();
-                    }
-                    public void Update(Restaurant restaurant)
-                    {
-                        var oldRestaurant = Get(restaurant.Id);
-                        oldRestaurant.Name = restaurant.Name;
-                        oldRestaurant.CuisineType = restaurant.CuisineType;
-                        context.SaveChanges();
-                    }
-                }
-        */
+            PostId = p.Id,
+            Title = p.Title,
+            Description = p.Description,
+            CategoryName = p.Category.Name,
+            CreatedDate = p.CreatedDate
+        }).FirstOrDefault();
+    }
+    public int AddPost(Post post)
+    {
+        context.Posts.Add(post);
+        context.SaveChanges();
+        return post.Id;
+    }
+    public void UpdatePost(Post post)
+    {
+        context.Posts.Update(post);
+        context.SaveChanges();
     }
 }
